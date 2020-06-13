@@ -24,6 +24,9 @@
         >
           <router-link class="nav-link" :to="{ name: 'dashboard' }">My-Dashboard</router-link>
         </li>
+        <li class="nav-item" :class="{ active: $route.name == 'mycars'}">
+          <router-link :to="{name: 'mycars'}" class="nav-link">My Cars</router-link>
+        </li>
       </ul>
       <span class="navbar-text">
         <button class="btn btn-success" @click="login" v-if="!$auth.isAuthenticated">Login</button>

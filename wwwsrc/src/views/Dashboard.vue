@@ -1,8 +1,7 @@
 <template>
   <div class="dashboard">
     <h1>WELCOME TO THE DASHBOARD</h1>
-    <cars />
-    <!-- <cars v-show="showCars">Cars Component template not loaded.</cars> -->
+    <cars v-show="showCars">Cars component template not loaded.</cars>
     <!-- <houses v-show="showHouses"></houses> -->
   </div>
 </template>

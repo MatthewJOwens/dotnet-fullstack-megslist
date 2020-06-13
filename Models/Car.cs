@@ -12,7 +12,7 @@ namespace fullstack_gregslist.Models
     [Required]
     public string Model { get; set; }
     [Required]
-    public int ProductionYear { get; set; }
+    public int Year { get; set; }
     [Required]
     public int Price { get; set; }
     [Required]

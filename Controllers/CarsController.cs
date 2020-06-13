@@ -25,12 +25,66 @@ namespace fullstack_gregslist.Controllers
       {
         return Ok(_cs.GetAll());
       }
-      catch (System.Exception)
+      catch (System.Exception err)
       {
 
-        throw;
+        return BadRequest(err.Message);
       }
     }
+    [HttpGet("{id}")]
+    public ActionResult<Car> GetById(int id)
+    {
+      try
+      {
+        return Ok(_cs.GetById(id));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
+    [Authorize]
+    [HttpGet("user")]
+    public ActionResult<IEnumerable<Car>> GetCarsByUser()
+    {
+      try
+      {
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("You must be logged in to get your cars!");
+        }
+        string userId = user.Value;
+        return Ok(_cs.GetByUserId(userId));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
+    [Authorize]
+    [HttpPut("{id}")]
+    public ActionResult<Car> Edit(int id, [FromBody] Car carToUpdate)
+    {
+      try
+      {
+        carToUpdate.Id = id;
+        Claim user = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (user == null)
+        {
+          throw new Exception("Must be logged in.");
+        }
+        string userId = user.Value;
+        return Ok(_cs.Edit(userId, carToUpdate));
+      }
+      catch (System.Exception err)
+      {
+        return BadRequest(err.Message);
+      }
+    }
+
 
     [Authorize]
     [HttpPost]

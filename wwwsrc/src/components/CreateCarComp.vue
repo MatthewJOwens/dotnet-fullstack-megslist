@@ -22,17 +22,17 @@
         />
       </div>
       <div class="form-group">
-        <label for="year">year</label>
+        <label for="year">Year</label>
         <input
           type="number"
           name="year"
           class="form-control"
           placeholder="Enter year...."
-          v-model="newCar.productionYear"
+          v-model="newCar.year"
         />
       </div>
       <div class="form-group">
-        <label for="price">price</label>
+        <label for="price">Price</label>
         <input
           type="number"
           name="price"
@@ -42,7 +42,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="imgUrl">imgUrl</label>
+        <label for="imgUrl">Image</label>
         <input
           type="text"
           name="imgUrl"
@@ -52,7 +52,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="body">body</label>
+        <label for="body">Description</label>
         <textarea
           name="body"
           class="form-control"
@@ -77,7 +77,7 @@ export default {
   computed: {},
   methods: {
     createCar() {
-      this.newCar.productionYear = +this.newCar.productionYear;
+      this.newCar.year = +this.newCar.year;
       this.newCar.price = +this.newCar.price;
       this.$store.dispatch("createCar", this.newCar);
     }

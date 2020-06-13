@@ -46,5 +46,29 @@ namespace fullstack_gregslist.Controllers
       }
       throw new Exception("Somethin bad happened");
     }
+
+    internal IEnumerable<Car> GetByUserId(string userId)
+    {
+      return _repo.GetCarsByUserId(userId);
+    }
+
+    internal Car Edit(string userId, Car carToUpdate)
+    {
+      Car foundCar = GetById(carToUpdate.Id);
+      if (foundCar.UserId != userId && foundCar.Price < carToUpdate.Price)
+      {
+        if (_repo.BidOnCar(carToUpdate))
+        {
+          foundCar.Price = carToUpdate.Price;
+          return foundCar;
+        }
+        throw new Exception("Could not bid on that car.");
+      }
+      if (_repo.Edit(carToUpdate, userId))
+      {
+        return carToUpdate;
+      }
+      throw new Exception("You cannot edit a car that isn't yours.");
+    }
   }
 }
